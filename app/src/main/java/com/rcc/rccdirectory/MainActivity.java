@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<String> list;
+    ArrayList<String> list , cadetNo;
     ArrayAdapter<String> adapter;
 
 
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         reference = database.getReference("info");
         ListView listView = findViewById(R.id.listView);
         list = new ArrayList<String>();
+        cadetNo = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this, R.layout.item, R.id.itemTextView, list );
 
 
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String cn = dataSnapshot.child("cn").getValue(String.class);
                 list.add(name +"\n"+ cn);
+                cadetNo.add(cn);
                 adapter.notifyDataSetChanged();
 
 
@@ -70,6 +76,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String Cn = cadetNo.get(i);
+                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                intent.putExtra("cn", Cn);
+                startActivity(intent);
+
+            }
+        });
 
 
     }
