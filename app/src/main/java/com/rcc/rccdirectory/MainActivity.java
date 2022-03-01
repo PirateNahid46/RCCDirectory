@@ -6,17 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -24,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<String> list , cadetNo, nameList, batchList, houseList, homeList, disList, conList, workList, emailList;
+    ArrayList<String> list , cadetNo, nameList, batchList, houseList, homeList, disList, conList, workList, emailList, miscList;
     ArrayAdapter<String> adapter;
 
 
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("info");
         ListView listView = findViewById(R.id.listView);
@@ -41,12 +48,29 @@ public class MainActivity extends AppCompatActivity {
         nameList = new ArrayList<String>();
         batchList = new ArrayList<String>();
         houseList = new ArrayList<String>();
-        homeList = new ArrayList<String>();
+        homeList = new ArrayList<>();
         disList = new ArrayList<String>();
         conList = new ArrayList<String>();
         workList = new ArrayList<String>();
         emailList = new ArrayList<String>();
+        miscList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.item, R.id.itemTextView, list );
+
+
+        Query query = reference.orderByChild("batch").equalTo("54");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String total = String.valueOf(snapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -63,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 String house = dataSnapshot.child("house").getValue(String.class);
                 String work = dataSnapshot.child("work").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
+                String misc = dataSnapshot.child("misc").getValue(String.class);
 
 
 
 
-                list.add(name +"\n"+ cn);
+                list.add(name +"\n"+ cn + "\n" + house);
                 nameList.add(name);
                 cadetNo.add(cn);
                 batchList.add(batch);
@@ -77,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 conList.add(contact);
                 workList.add(work);
                 emailList.add(email);
+                miscList.add(misc);
 
                 adapter.notifyDataSetChanged();
 
@@ -117,12 +143,45 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("mobile", conList.get(i));
                 intent.putExtra("work", workList.get(i));
                 intent.putExtra("email", emailList.get(i));
+                intent.putExtra("misc", miscList.get(i));
 
                 startActivity(intent);
 
             }
         });
 
+
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search:
+                search();
+                return true;
+            case R.id.filter:
+                filter();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void search() {
+        Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+    }
+
+    private void filter() {
+        Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
     }
 

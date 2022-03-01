@@ -4,98 +4,155 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailsActivity">
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/profileImage"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textColor="@color/black"
-        android:text="Name: Cadet Sakib"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:layout_below="@+id/profileImage"
-        android:id="@+id/nameView"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cadetNo"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="Batch: 53"
-        android:textAlignment="center"
-        android:id="@+id/batchView" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nameView"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="Cadet no: 2775"
-        android:textAlignment="center"
-        android:id="@+id/cadetNo" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/batchView"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="House: Tariq"
-        android:textAlignment="center"
-        android:id="@+id/houseView" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/houseView"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="Work : Cadet"
-        android:textAlignment="center"
-        android:id="@+id/workV" />
+        android:layout_height="match_parent"
+        android:background="#C3FFFFFF"
+        >
 
-    <TextView
-        android:id="@+id/mobileV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/workV"
-        android:padding="8dp"
-        android:text="Mobile: 017000000000"
-        android:drawableRight="@drawable/call"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linLay"
+            android:layout_margin="2dp"
+            >
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:padding="2dp"
+                android:layout_centerHorizontal="false" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mobileV"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:drawableRight="@drawable/email"
-        android:gravity="center"
-        android:text="Email: name@example.com"
-        android:textAlignment="center"
-        android:id="@+id/emailV" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:background="@drawable/border"
+                android:padding="2dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailV"
-        android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="Address: Rangpur"
-        android:textAlignment="center"
-        android:id="@+id/addressV" />
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="2dp"
+                    android:paddingStart="2dp"
+                    android:textColor="@color/black"
+                    android:text="Cadet Sakib"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:id="@+id/nameView"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="Cadet no: 2775"
+                    android:textStyle="bold"
+                    android:id="@+id/cadetNo" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="Batch: 53"
+                    android:textStyle="bold"
+                    android:id="@+id/batchView" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/batchView"
+                    android:padding="2dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="House: Tariq"
+                    android:id="@+id/houseView" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linLay"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/workV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Occupation : Cadet"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/mobileV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/workV"
+                android:drawableRight="@drawable/call"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Mobile: 017000000000"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/emailV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mobileV"
+                android:drawableRight="@drawable/email"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Email: name@example.com"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/addressV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailV"
+                android:padding="8dp"
+                android:text="Address: Rangpur"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/miscV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addressV"
+                android:padding="8dp"
+                android:text="Misc: ...."
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

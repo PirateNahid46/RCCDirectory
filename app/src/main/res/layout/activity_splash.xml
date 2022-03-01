@@ -16,13 +16,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RCC Directory"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:fontFamily="times"
-        android:textColor="#FFEB3B"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
-        />
+        android:fontFamily="times"
+        android:text="RCC Directory"
+        android:textColor="#FFAB02"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
