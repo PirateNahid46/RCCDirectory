@@ -60,16 +60,19 @@
         android:text="Work : Cadet"
         android:textAlignment="center"
         android:id="@+id/workV" />
+
     <TextView
+        android:id="@+id/mobileV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/workV"
         android:padding="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
         android:text="Mobile: 017000000000"
+        android:drawableRight="@drawable/call"
         android:textAlignment="center"
-        android:id="@+id/mobileV" />
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -78,6 +81,8 @@
         android:padding="8dp"
         android:textSize="18sp"
         android:textColor="@color/black"
+        android:drawableRight="@drawable/email"
+        android:gravity="center"
         android:text="Email: name@example.com"
         android:textAlignment="center"
         android:id="@+id/emailV" />
