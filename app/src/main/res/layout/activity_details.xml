@@ -23,6 +23,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/cadetNo"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Batch: 53"
+        android:textAlignment="center"
+        android:id="@+id/batchView" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/nameView"
         android:padding="8dp"
         android:textSize="18sp"
@@ -30,5 +40,57 @@
         android:text="Cadet no: 2775"
         android:textAlignment="center"
         android:id="@+id/cadetNo" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/batchView"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="House: Tariq"
+        android:textAlignment="center"
+        android:id="@+id/houseView" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/houseView"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Work : Cadet"
+        android:textAlignment="center"
+        android:id="@+id/workV" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workV"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Mobile: 017000000000"
+        android:textAlignment="center"
+        android:id="@+id/mobileV" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mobileV"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Email: name@example.com"
+        android:textAlignment="center"
+        android:id="@+id/emailV" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailV"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Address: Rangpur"
+        android:textAlignment="center"
+        android:id="@+id/addressV" />
 
 </RelativeLayout>
