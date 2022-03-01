@@ -4,9 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailsActivity">
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/profileImage"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cadetNo"/>
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:text="Name: Cadet Sakib"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_below="@+id/profileImage"
+        android:id="@+id/nameView"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameView"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Cadet no: 2775"
+        android:textAlignment="center"
+        android:id="@+id/cadetNo" />
 
 </RelativeLayout>

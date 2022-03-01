@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<String> list , cadetNo;
+    ArrayList<String> list , cadetNo, nameList;
     ArrayAdapter<String> adapter;
 
 
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
         list = new ArrayList<String>();
         cadetNo = new ArrayList<String>();
+        nameList = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this, R.layout.item, R.id.itemTextView, list );
 
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String cn = dataSnapshot.child("cn").getValue(String.class);
                 list.add(name +"\n"+ cn);
+                nameList.add(name);
                 cadetNo.add(cn);
                 adapter.notifyDataSetChanged();
 
@@ -80,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String Cn = cadetNo.get(i);
+                String name = nameList.get(i);
                 Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                 intent.putExtra("cn", Cn);
+                intent.putExtra("name", name);
                 startActivity(intent);
 
             }
