@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("info");
         ListView listView = findViewById(R.id.listView);
+        CustomAdapter adapter2 = new CustomAdapter();
+        listView.setAdapter(adapter2);
         list = new ArrayList<String>();
         cadetNo = new ArrayList<String>();
         nameList = new ArrayList<String>();
@@ -55,22 +61,6 @@ public class MainActivity extends AppCompatActivity {
         emailList = new ArrayList<String>();
         miscList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.item, R.id.itemTextView, list );
-
-
-        Query query = reference.orderByChild("batch").equalTo("54");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    String total = String.valueOf(snapshot.getChildrenCount());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
 
@@ -129,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -183,6 +173,41 @@ public class MainActivity extends AppCompatActivity {
     private void filter() {
         Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
+    }
+
+    private class CustomAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            View view1 = getLayoutInflater().inflate(R.layout.item_layout, null);
+
+            //getting view in row_data
+            TextView name = view1.findViewById(R.id.Title);
+            TextView desc = view1.findViewById(R.id.Description);
+            ImageView image = view1.findViewById(R.id.listview_images);
+
+            name.setText(list.get(i));
+            //desc.setText(ListviewDescription[i]);
+            //image.setImageResource(ListviewImages[i]);
+
+
+            return view1;
+        }
     }
 
 }
