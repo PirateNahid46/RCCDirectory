@@ -24,14 +24,18 @@
         </TextView>
 
     </androidx.appcompat.widget.Toolbar>
-    <ListView
-        android:layout_margin="2dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
-        android:divider="#ffffff"
-        android:layout_below="@+id/toolbar"
-        />
+        android:layout_below="@+id/toolbar" />
+
+
+
+
+
+
+
 
 
 

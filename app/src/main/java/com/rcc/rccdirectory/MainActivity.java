@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
     ArrayList<String> list , cadetNo, nameList, batchList, houseList, homeList, disList, conList, workList, emailList, miscList;
     ArrayAdapter<String> adapter;
+    infoAdapter infoAdapter;
 
 
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("info");
-        ListView listView = findViewById(R.id.listView);
+        //ListView listView = findViewById(R.id.listView);
         list = new ArrayList<String>();
         cadetNo = new ArrayList<String>();
         nameList = new ArrayList<String>();
@@ -119,26 +120,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra("cn", cadetNo.get(i));
-                intent.putExtra("name", nameList.get(i));
-                intent.putExtra("batch", batchList.get(i));
-                intent.putExtra("house",houseList.get(i));
-                intent.putExtra("home", homeList.get(i));
-                intent.putExtra("district", disList.get(i));
-                intent.putExtra("mobile", conList.get(i));
-                intent.putExtra("work", workList.get(i));
-                intent.putExtra("email", emailList.get(i));
-                intent.putExtra("misc", miscList.get(i));
-
-                startActivity(intent);
-
-            }
-        });
+        //listView.setAdapter(adapter);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+//                intent.putExtra("cn", cadetNo.get(i));
+//                intent.putExtra("name", nameList.get(i));
+//                intent.putExtra("batch", batchList.get(i));
+//                intent.putExtra("house",houseList.get(i));
+//                intent.putExtra("home", homeList.get(i));
+//                intent.putExtra("district", disList.get(i));
+//                intent.putExtra("mobile", conList.get(i));
+//                intent.putExtra("work", workList.get(i));
+//                intent.putExtra("email", emailList.get(i));
+//                intent.putExtra("misc", miscList.get(i));
+//
+//                startActivity(intent);
+//
+//            }
+//        });
 
 
     }
