@@ -28,6 +28,7 @@ public class DetailsActivity extends AppCompatActivity {
     DatabaseReference reference;
     StorageReference storageReference;
     String name, cn , batch, house, home, district, mobile, work, email, misc;
+    ImageView callBtn, emailBtn;
 
 
 
@@ -61,6 +62,9 @@ public class DetailsActivity extends AppCompatActivity {
         emailView = findViewById(R.id.emailV);
         miscView = findViewById(R.id.miscV);
 
+        emailBtn = findViewById(R.id.emailBtn);
+        callBtn = findViewById(R.id.callBtn);
+
 
         cadetNo.setText("Cadet no: " + cn);
         nameView.setText("Name: " + name);
@@ -83,7 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        mobileView.setOnClickListener(new View.OnClickListener() {
+        callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -92,7 +96,7 @@ public class DetailsActivity extends AppCompatActivity {
 
             }
         });
-        emailView.setOnClickListener(new View.OnClickListener() {
+        emailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
