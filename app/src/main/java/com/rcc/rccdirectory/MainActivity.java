@@ -66,16 +66,18 @@ public class MainActivity extends AppCompatActivity {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String name = dataSnapshot.child("name").getValue(String.class);
-                String cn = dataSnapshot.child("cn").getValue(String.class);
-                String batch = dataSnapshot.child("batch").getValue(String.class);
-                String contact = dataSnapshot.child("contact").getValue(String.class);
-                String district = dataSnapshot.child("district").getValue(String.class);
-                String home = dataSnapshot.child("home").getValue(String.class);
-                String house = dataSnapshot.child("house").getValue(String.class);
-                String work = dataSnapshot.child("work").getValue(String.class);
-                String email = dataSnapshot.child("email").getValue(String.class);
-                String misc = dataSnapshot.child("misc").getValue(String.class);
+                Info info;
+                info = dataSnapshot.getValue(Info.class);
+                String name = info.getName();
+                String cn = info.getCn();
+                String batch = info.getBatch();
+                String contact = info.getContact();
+                String district = info.getDistrict();
+                String home = info.getHome();
+                String house = info.getHouse();
+                String work = info.getWork();
+                String email = info.getEmail();
+                String misc = info.getMisc();
 
 
 
