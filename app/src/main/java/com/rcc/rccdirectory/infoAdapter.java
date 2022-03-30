@@ -1,6 +1,8 @@
 package com.rcc.rccdirectory;
 
 
+import static com.rcc.rccdirectory.R.drawable.profile;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +35,20 @@ public class infoAdapter extends FirebaseRecyclerAdapter<
     protected void onBindViewHolder(@NonNull infoViewHolder holder, int position, @NonNull Info model) {
         holder.name.setText(model.getName());
         String cn = model.getCn();
+        StorageReference storageReference;
+        storageReference = FirebaseStorage.getInstance().getReference(cn+".jpg");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytesPrm -> {
+            Bitmap bmp = BitmapFactory.decodeByteArray(bytesPrm, 0, bytesPrm.length);
+            holder.image.setImageBitmap(bmp);
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                
+
+
+            }
+        });
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
