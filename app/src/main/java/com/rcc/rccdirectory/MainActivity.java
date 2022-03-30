@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<String> list , cadetNo, nameList, batchList, houseList, homeList, disList, conList, workList, emailList, miscList;
-    ArrayAdapter<String> adapter;
     RecyclerView recyclerView;
     infoAdapter infoAdapter;
 
@@ -52,19 +50,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("info");
-        ListView listView = findViewById(R.id.listView);
-        list = new ArrayList<String>();
-        cadetNo = new ArrayList<String>();
-        nameList = new ArrayList<String>();
-        batchList = new ArrayList<String>();
-        houseList = new ArrayList<String>();
-        homeList = new ArrayList<>();
-        disList = new ArrayList<String>();
-        conList = new ArrayList<String>();
-        workList = new ArrayList<String>();
-        emailList = new ArrayList<String>();
-        miscList = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(this, R.layout.item, R.id.itemTextView, list );
         recyclerView = findViewById(R.id.recView);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this));
@@ -75,88 +60,6 @@ public class MainActivity extends AppCompatActivity {
         infoAdapter = new infoAdapter(options);
         recyclerView.setAdapter(infoAdapter);
 
-
-
-
-
-
-
-        reference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Info info;
-                info = dataSnapshot.getValue(Info.class);
-                String name = info.getName();
-                String cn = info.getCn();
-                String batch = info.getBatch();
-                String contact = info.getContact();
-                String district = info.getDistrict();
-                String home = info.getHome();
-                String house = info.getHouse();
-                String work = info.getWork();
-                String email = info.getEmail();
-                String misc = info.getMisc();
-
-
-
-
-                list.add(name +"\n"+ cn + "\n" + house);
-                nameList.add(name);
-                cadetNo.add(cn);
-                batchList.add(batch);
-                houseList.add(house);
-                homeList.add(home);
-                disList.add(district);
-                conList.add(contact);
-                workList.add(work);
-                emailList.add(email);
-                miscList.add(misc);
-
-                adapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra("cn", cadetNo.get(i));
-                intent.putExtra("name", nameList.get(i));
-                intent.putExtra("batch", batchList.get(i));
-                intent.putExtra("house",houseList.get(i));
-                intent.putExtra("home", homeList.get(i));
-                intent.putExtra("district", disList.get(i));
-                intent.putExtra("mobile", conList.get(i));
-                intent.putExtra("work", workList.get(i));
-                intent.putExtra("email", emailList.get(i));
-                intent.putExtra("misc", miscList.get(i));
-
-                startActivity(intent);
-
-            }
-        });
 
 
     }

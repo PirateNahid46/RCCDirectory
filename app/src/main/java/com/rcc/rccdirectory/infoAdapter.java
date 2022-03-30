@@ -1,11 +1,11 @@
 package com.rcc.rccdirectory;
 
 
-import static com.rcc.rccdirectory.R.drawable.profile;
-
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +18,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.common.internal.ResourceUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class infoAdapter extends FirebaseRecyclerAdapter<
         Info, infoAdapter.infoViewHolder> {
+    Context context;
+
+    public infoAdapter(@NonNull FirebaseRecyclerOptions<Info> options, Context context) {
+        super(options);
+    }
+
     public infoAdapter(@NonNull FirebaseRecyclerOptions<Info> options){
         super(options);
     }
@@ -34,6 +44,7 @@ public class infoAdapter extends FirebaseRecyclerAdapter<
     @Override
     protected void onBindViewHolder(@NonNull infoViewHolder holder, int position, @NonNull Info model) {
         holder.name.setText(model.getName());
+        holder.cn.setText(model.getCn());
         String cn = model.getCn();
         StorageReference storageReference;
         storageReference = FirebaseStorage.getInstance().getReference(cn+".jpg");
@@ -44,11 +55,10 @@ public class infoAdapter extends FirebaseRecyclerAdapter<
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                
-
 
             }
         });
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,13 +94,14 @@ public class infoAdapter extends FirebaseRecyclerAdapter<
 
 
     class infoViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
-        ImageView image;
+        TextView name, cn;
+        CircleImageView image;
         LinearLayout linearLayout;
         public infoViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.recName);
-            image = itemView.findViewById(R.id.listview_images);
+            cn = itemView.findViewById(R.id.cadetNoL);
+            image = itemView.findViewById(R.id.imageRec);
             linearLayout = itemView.findViewById(R.id.itemLay);
 
 

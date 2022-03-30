@@ -2,24 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginBottom="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="5dp"
     android:gravity="center"
-    android:padding="5dp"
+    android:padding="2dp"
     android:orientation="horizontal"
     android:id="@+id/itemLay"
-    android:elevation="5dp">
+    android:background="@drawable/listbg"
+    android:elevation="2dp">
 
-    <ImageView
-        android:id="@+id/listview_images"
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_margin="7dp"
+        android:id="@+id/imageRec"
         android:src="@drawable/profile"
-        android:transitionName="imageTransition"
-         />
+        >
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +48,7 @@
             android:transitionName="titleTransition" />
 
         <TextView
-            android:id="@+id/Description"
+            android:id="@+id/cadetNoL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Description"
