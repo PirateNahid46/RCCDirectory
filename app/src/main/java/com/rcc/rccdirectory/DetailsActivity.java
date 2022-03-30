@@ -82,7 +82,7 @@ public class DetailsActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                imageView.setImageResource(R.mipmap.ic_launcher);
+
             }
         });
 
