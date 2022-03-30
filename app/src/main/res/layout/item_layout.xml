@@ -9,6 +9,7 @@
     android:gravity="center"
     android:padding="5dp"
     android:orientation="horizontal"
+    android:id="@+id/itemLay"
     android:elevation="5dp">
 
     <ImageView
@@ -16,6 +17,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="7dp"
+        android:src="@drawable/profile"
         android:transitionName="imageTransition"
          />
 

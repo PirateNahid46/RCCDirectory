@@ -18,7 +18,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
     ArrayList<String> list , cadetNo, nameList, batchList, houseList, homeList, disList, conList, workList, emailList, miscList;
     ArrayAdapter<String> adapter;
+    RecyclerView recyclerView;
     infoAdapter infoAdapter;
+
 
 
 
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("info");
-        //ListView listView = findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listView);
         list = new ArrayList<String>();
         cadetNo = new ArrayList<String>();
         nameList = new ArrayList<String>();
@@ -60,6 +65,18 @@ public class MainActivity extends AppCompatActivity {
         emailList = new ArrayList<String>();
         miscList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.item, R.id.itemTextView, list );
+        recyclerView = findViewById(R.id.recView);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(this));
+        FirebaseRecyclerOptions<Info> options
+                = new FirebaseRecyclerOptions.Builder<Info>()
+                .setQuery(reference, Info.class)
+                .build();
+        infoAdapter = new infoAdapter(options);
+        recyclerView.setAdapter(infoAdapter);
+
+
+
 
 
 
@@ -120,26 +137,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-//                intent.putExtra("cn", cadetNo.get(i));
-//                intent.putExtra("name", nameList.get(i));
-//                intent.putExtra("batch", batchList.get(i));
-//                intent.putExtra("house",houseList.get(i));
-//                intent.putExtra("home", homeList.get(i));
-//                intent.putExtra("district", disList.get(i));
-//                intent.putExtra("mobile", conList.get(i));
-//                intent.putExtra("work", workList.get(i));
-//                intent.putExtra("email", emailList.get(i));
-//                intent.putExtra("misc", miscList.get(i));
-//
-//                startActivity(intent);
-//
-//            }
-//        });
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                intent.putExtra("cn", cadetNo.get(i));
+                intent.putExtra("name", nameList.get(i));
+                intent.putExtra("batch", batchList.get(i));
+                intent.putExtra("house",houseList.get(i));
+                intent.putExtra("home", homeList.get(i));
+                intent.putExtra("district", disList.get(i));
+                intent.putExtra("mobile", conList.get(i));
+                intent.putExtra("work", workList.get(i));
+                intent.putExtra("email", emailList.get(i));
+                intent.putExtra("misc", miscList.get(i));
+
+                startActivity(intent);
+
+            }
+        });
 
 
     }
@@ -175,6 +192,20 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
     }
+    @Override protected void onStart()
+    {
+        super.onStart();
+        infoAdapter.startListening();
+    }
+
+    // Function to tell the app to stop getting
+    // data from database on stopping of the activity
+    @Override protected void onStop()
+    {
+        super.onStop();
+        infoAdapter.stopListening();
+    }
+
 
 
 

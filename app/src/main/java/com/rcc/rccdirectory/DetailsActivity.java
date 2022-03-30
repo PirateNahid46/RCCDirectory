@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,7 +26,6 @@ import com.google.firebase.storage.StorageReference;
 public class DetailsActivity extends AppCompatActivity {
     TextView cadetNo,nameView, batchView, houseView, addressView, mobileView, workView, emailView, miscView;
     ImageView imageView;
-    DatabaseReference reference;
     StorageReference storageReference;
     String name, cn , batch, house, home, district, mobile, work, email, misc;
     ImageView callBtn, emailBtn;
@@ -36,7 +36,6 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        reference = FirebaseDatabase.getInstance().getReference("list");
         cn = getIntent().getStringExtra("cn");
         storageReference = FirebaseStorage.getInstance().getReference(cn+".jpg");
         name = getIntent().getStringExtra("name");
@@ -117,5 +116,12 @@ public class DetailsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
