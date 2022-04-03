@@ -21,6 +21,9 @@
         <entry key="..\:/Users/VP/AndroidStudioProjects/RCCDirectory/app/src/main/res/layout/activity_splash.xml" value="0.24547101449275363" />
         <entry key="..\:/Users/VP/AndroidStudioProjects/RCCDirectory/app/src/main/res/layout/item.xml" value="0.4814159292035398" />
         <entry key="..\:/Users/VP/AndroidStudioProjects/RCCDirectory/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/drawable/border.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.15896739130434784" />
       </map>
     </option>
   </component>

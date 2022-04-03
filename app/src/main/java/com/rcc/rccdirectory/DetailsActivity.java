@@ -1,8 +1,6 @@
 package com.rcc.rccdirectory;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,10 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +26,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView cadetNo,nameView, batchView, houseView, addressView, mobileView, workView, emailView, miscView;
     ImageView imageView;
     StorageReference storageReference;
-    String name, cn , batch, house, home, district, mobile, work, email, misc;
+    DatabaseReference reference;
+    String cn ,mobile, email;
     ImageView callBtn, emailBtn;
 
 
@@ -38,19 +38,38 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         cn = getIntent().getStringExtra("cn");
         storageReference = FirebaseStorage.getInstance().getReference(cn+".jpg");
-        name = getIntent().getStringExtra("name");
-        batch = getIntent().getStringExtra("batch");
-        house = getIntent().getStringExtra("house");
-        home = getIntent().getStringExtra("home");
-        district = getIntent().getStringExtra("district");
-        mobile = getIntent().getStringExtra("mobile");
-        work = getIntent().getStringExtra("work");
-        email = getIntent().getStringExtra("email");
-        misc = getIntent().getStringExtra("misc");
+        reference = FirebaseDatabase.getInstance().getReference("info").child(cn);
+        reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Info info = dataSnapshot.getValue(Info.class);
+                assert info != null;
+                nameView.setText(info.getName());
+                batchView.setText("Batch: " + info.getBatch());
+                houseView.setText("House: "+ info.getHouse());
+                addressView.setText("Address: " + info.getHome() + ", "+ info.getDistrict());
+                mobileView.setText("Mobile: "+ info.getContact());
+                workView.setText("Work: "+ info.getWork());
+                emailView.setText("Email: "+ info.getEmail());
+                miscView.setText("Fullname: " + info.getFlName()+
+                        "\n \nBirthdate: " + info.getBdate()+
+                        "\n \nMisc: "+ info.getMisc());
+                mobile = info.getContact();
+                email = info.getEmail();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
         cadetNo = findViewById(R.id.cadetNo);
+        cadetNo.setText(cn);
         nameView = findViewById(R.id.nameView);
         imageView = findViewById(R.id.profileImage);
         batchView = findViewById(R.id.batchView);
@@ -60,20 +79,11 @@ public class DetailsActivity extends AppCompatActivity {
         workView = findViewById(R.id.workV);
         emailView = findViewById(R.id.emailV);
         miscView = findViewById(R.id.miscV);
-
         emailBtn = findViewById(R.id.emailBtn);
         callBtn = findViewById(R.id.callBtn);
 
 
-        cadetNo.setText("Cadet no: " + cn);
-        nameView.setText("Name: " + name);
-        batchView.setText("Batch: " + batch);
-        houseView.setText("House: "+ house);
-        addressView.setText("Address: " + home + ", "+ district);
-        mobileView.setText("Mobile: "+ mobile);
-        workView.setText("Work: "+ work);
-        emailView.setText("Email: "+ email);
-        miscView.setText("Misc: "+misc);
+
 
         final long ONE_MEGABYTE = 1024 * 1024;
         storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytesPrm -> {
@@ -118,10 +128,4 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
 }

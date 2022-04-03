@@ -1,36 +1,24 @@
 package com.rcc.rccdirectory;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
     RecyclerView recyclerView;
     infoAdapter infoAdapter;
+    List<Info> mInfo;
 
 
 
@@ -48,17 +37,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mInfo = new ArrayList<Info>();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("info");
         recyclerView = findViewById(R.id.recView);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this));
-        FirebaseRecyclerOptions<Info> options
-                = new FirebaseRecyclerOptions.Builder<Info>()
-                .setQuery(reference, Info.class)
-                .build();
-        infoAdapter = new infoAdapter(options);
-        recyclerView.setAdapter(infoAdapter);
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mInfo.clear();
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Info info = dataSnapshot.getValue(Info.class);
+                    mInfo.add(info);
+                }
+                infoAdapter = new infoAdapter(getBaseContext(), mInfo);
+                recyclerView.setAdapter(infoAdapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -95,19 +100,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
     }
-    @Override protected void onStart()
-    {
-        super.onStart();
-        infoAdapter.startListening();
-    }
 
-    // Function to tell the app to stop getting
-    // data from database on stopping of the activity
-    @Override protected void onStop()
-    {
-        super.onStop();
-        infoAdapter.stopListening();
-    }
 
 
 
