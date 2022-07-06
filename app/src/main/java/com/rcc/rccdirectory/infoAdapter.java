@@ -1,13 +1,16 @@
 package com.rcc.rccdirectory;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +36,7 @@ public class infoAdapter extends RecyclerView.Adapter<infoAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, cn;
+        TextView name, cn, work, house;
         CircleImageView image;
         LinearLayout linearLayout;
         public ViewHolder(@NonNull View itemView) {
@@ -42,6 +45,8 @@ public class infoAdapter extends RecyclerView.Adapter<infoAdapter.ViewHolder> {
             cn = itemView.findViewById(R.id.cadetNoL);
             image = itemView.findViewById(R.id.imageRec);
             linearLayout = itemView.findViewById(R.id.itemLay);
+            work = itemView.findViewById(R.id.workL);
+            house = itemView.findViewById(R.id.houseL);
 
 
 
@@ -61,8 +66,29 @@ public class infoAdapter extends RecyclerView.Adapter<infoAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Info info = mInfo.get(position);
-        holder.name.setText(info.getName());
+        holder.name.setText("Cadet "+info.getName());
         holder.cn.setText(info.getCn());
+        holder.work.setText(info.getWork());
+        switch (info.getHouse()){
+            case "Qasim":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    holder.house.setBackground(mContext.getResources().getDrawable(R.drawable.qhdot));
+                }
+                break;
+            case "Khalid":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    holder.house.setBackground(mContext.getResources().getDrawable(R.drawable.khdot));
+                }
+                break;
+            default:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    holder.house.setBackground(mContext.getResources().getDrawable(R.drawable.thdot));
+                }
+                break;
+
+        }
+
+
         StorageReference storageReference;
         storageReference = FirebaseStorage.getInstance().getReference(info.getCn()+".jpg");
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -77,6 +103,7 @@ public class infoAdapter extends RecyclerView.Adapter<infoAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("cn", info.getCn());
                 mContext.startActivity(intent);
             }

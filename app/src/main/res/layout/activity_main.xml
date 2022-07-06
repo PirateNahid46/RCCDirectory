@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFC107"
+        android:background="#DAF4C129"
         android:id="@+id/toolbar">
         <TextView
             android:layout_width="match_parent"
@@ -24,12 +24,49 @@
         </TextView>
 
     </androidx.appcompat.widget.Toolbar>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recView"
+    <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchBar"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:hint="Search"
+                android:layout_margin="5dp"
+                android:backgroundTint="#F4F4F4"
+                android:background="@drawable/empty"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/searchBtn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="#fff"
+                android:scaleType="fitCenter"
+                android:src="@drawable/search" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+
 
 
 

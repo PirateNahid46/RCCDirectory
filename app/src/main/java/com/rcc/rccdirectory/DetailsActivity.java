@@ -23,7 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class DetailsActivity extends AppCompatActivity {
-    TextView cadetNo,nameView, batchView, houseView, addressView, mobileView, workView, emailView, miscView;
+    TextView cadetNo,nameView, batchView, houseView, addressView, mobileView, workView, emailView, miscView, fullNameView, ribbon;
     ImageView imageView;
     StorageReference storageReference;
     DatabaseReference reference;
@@ -40,23 +40,34 @@ public class DetailsActivity extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference(cn+".jpg");
         reference = FirebaseDatabase.getInstance().getReference("info").child(cn);
         reference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
+            @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Info info = dataSnapshot.getValue(Info.class);
                 assert info != null;
                 nameView.setText(info.getName());
-                batchView.setText("Batch: " + info.getBatch());
-                houseView.setText("House: "+ info.getHouse());
-                addressView.setText("Address: " + info.getHome() + ", "+ info.getDistrict());
-                mobileView.setText("Mobile: "+ info.getContact());
-                workView.setText("Work: "+ info.getWork());
-                emailView.setText("Email: "+ info.getEmail());
-                miscView.setText("Fullname: " + info.getFlName()+
-                        "\n \nBirthdate: " + info.getBdate()+
-                        "\n \nMisc: "+ info.getMisc());
+                batchView.setText("Batch: " + info.getBatch() + " Intake: " + info.getIntake());
+                houseView.setText(info.getHouse());
+                addressView.setText(info.getHome() + ", "+ info.getDistrict());
+                mobileView.setText(info.getContact());
+                workView.setText(info.getWork());
+                emailView.setText(info.getEmail());
+                fullNameView.setText(info.getFlName());
+                miscView.setText("Birthdate: " + info.getBdate()+
+                        "\n \n"+ info.getMisc());
                 mobile = info.getContact();
                 email = info.getEmail();
+
+                switch (info.getHouse()){
+                    case "Qasim":
+                        ribbon.setBackground(getResources().getDrawable(R.drawable.ribbonqh));
+                        break;
+                    case "Khalid":
+                        ribbon.setBackground(getResources().getDrawable(R.drawable.ribbonkh));
+                        break;
+                    default:
+                        break;
+                }
 
             }
 
@@ -81,6 +92,8 @@ public class DetailsActivity extends AppCompatActivity {
         miscView = findViewById(R.id.miscV);
         emailBtn = findViewById(R.id.emailBtn);
         callBtn = findViewById(R.id.callBtn);
+        fullNameView = findViewById(R.id.flNameV);
+        ribbon = findViewById(R.id.hBookmark);
 
 
 

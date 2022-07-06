@@ -1,8 +1,12 @@
 package com.rcc.rccdirectory;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     infoAdapter infoAdapter;
     List<Info> mInfo;
+    ImageButton search;
 
 
 
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        search = findViewById(R.id.searchBtn);
         setSupportActionBar(toolbar);
         mInfo = new ArrayList<Info>();
         database = FirebaseDatabase.getInstance();
@@ -91,9 +97,25 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    int i = 0;
 
     private void search() {
-        Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+        LinearLayout searchB = findViewById(R.id.searchBar);
+        if(i == 0){
+            i = 1;
+            searchB.setVisibility(View.VISIBLE);
+            search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }else {
+            i = 0;
+            searchB.setVisibility(View.GONE);
+        }
+
     }
 
     private void filter() {
